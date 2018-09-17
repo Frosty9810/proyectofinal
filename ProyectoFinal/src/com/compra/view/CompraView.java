@@ -2,39 +2,51 @@ package com.compra.view;
 
 import java.util.Scanner;
 
+import com.compra.entity.Compra;
+import com.proveedor.entity.Proveedor;
 
-public class CompraView {
-	private CompraControl compra;
-	private Auto productos;
+import cliente.control.clientes;
+import excepcionesInputTypes.InputTypes;
+import excepcionesInputTypes.clienteFantasma;
+import excepcionesInputTypes.compraFantasma;
+import excepcionesInputTypes.proveedorFantasma;
+import excepcionesInputTypes.ventaFantasma;
+import com.compra.control.compras;
+
+
+public class compraView {
+	private compras compras;
 	private Scanner scanner;
-	public CategoriaView(categorias categorias, Productos productos, Scanner scanner) {
+
+	public compraView(compras compras ,Scanner scanner) {
 		
-		this.categorias=categorias;
-		this.productos=productos;
+		this.compras = compras;
+		
 		this.scanner = scanner;
 	}
 	
-	public void addCategoria() {
-		categoria categoria;
+	public void addCompra() throws compraFantasma {
+		Compra compra;
 		
-		categoria = RegistroCategoria.ingresar(scanner);
-		categorias.ingresar(categoria);
+		compra = compraRegistro.ingresar(scanner);
+		compras.ingresar(compra);
 				
 	}
 	
-	public void listCategory() {
-		for(int i=0; i<categorias.getCantidad(); i++) {
-			System.out.println(categorias.getCategorias()[i]);
+	public void listCompra() {
+		for(int i=0; i<compras.getCantidad(); i++) {
+			System.out.println(compras.getCompra()[i]);
 		}
 	}
 	
-	public void deleteCategory() throws CategoriaFantasma {
-		int codCategoria = InputTypes.readInt("Ingrese el codigo de la categoria", scanner);
-		categorias.eliminar(codCategoria);	
+	public void deleteCompra() throws compraFantasma {
+		int codigoCompra = InputTypes.readInt("Ingrese el codigo de la compra: ", scanner);
+		compras.eliminar(codigoCompra);	
 	}
 
-	public categorias getCategorias() {
-		return categorias;
+	public compras getCompra() {
+		return compras;
 	}
-
 }
+
+

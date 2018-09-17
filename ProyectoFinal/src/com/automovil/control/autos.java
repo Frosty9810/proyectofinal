@@ -1,6 +1,6 @@
-package com.automovil.entity;
+package com.automovil.control;
 
-public class auto {
+public class autos {
 	private int codigoAutomovil;
 	private String tipoAuto;
 	private String marcaAuto;
@@ -11,7 +11,7 @@ public class auto {
 	private String garantia;
 
 
-	public auto (int codigoAutomovil, String tipoAuto, String marcaAuto, int numeroChasis, String procedencia, String color, double precio, String garantia) {
+	public autos (int codigoAutomovil, String tipoAuto, String marcaAuto, int numeroChasis, String procedencia, String color, double precio, String garantia) {
 		super();
 		this.codigoAutomovil=codigoAutomovil;
 		this.tipoAuto=tipoAuto;

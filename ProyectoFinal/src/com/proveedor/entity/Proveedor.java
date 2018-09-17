@@ -1,12 +1,10 @@
 package com.proveedor.entity;
 
 public class Proveedor {
-	
 	private int codigoProveedor;
 	private String nombreProveedor;
 	
 	public Proveedor(int codigoProveedor, String nombreProveedor) {
-		
 		
 	}
 
@@ -27,7 +25,7 @@ public class Proveedor {
 	}
 	@Override
 	public String toString() {
-		return "Proveedor [Codigo del Proveedor=" + codigoProveedor + ", Nombre del Proveedor =" + nombreProveedor + "]";
+		return " Proveedor[codigo del proveedor=" + codigoProveedor + ", Nombre del Proveedor=" + nombreProveedor + "]";
 
 	}
 }
