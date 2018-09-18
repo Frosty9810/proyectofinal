@@ -1,6 +1,5 @@
 package empleado.entity;
 
-import com.automovil.entity.Auto;
 
 public class empleado {
 	private int codigoEmpleado;

@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.automovil.control.autos;
 import com.automovil.entity.Auto;
+import com.compra.control.compras;
 
 import control.Conexión;
 import excepcionesInputTypes.InputTypes;
@@ -15,9 +17,16 @@ import excepcionesInputTypes.autoFantasma;
 public class AutoView {
 	private Scanner scanner;
 	private Conexión conexión;
-	public AutoView(Conexión conexion, Scanner scanner) {
+	private autos autos;
+	private compras compras;
+	public AutoView(autos autos, compras compras,Conexión conexion, Scanner scanner) {
 		this.conexión = conexion;
+		this.autos=autos;
+		this.compras=compras;
 		this.scanner = scanner;
+	}
+	public AutoView(autos autos, compras compras, Scanner scanner2) {
+		// TODO Auto-generated constructor stub
 	}
 	public void addAuto() {
 		

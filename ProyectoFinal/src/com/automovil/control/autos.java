@@ -4,12 +4,12 @@ import com.automovil.entity.Auto;
 
 import excepcionesInputTypes.autoFantasma;
 
-public class Autos {
+public class autos {
 	private Auto[] autos;
 	private int cantidad;
 	private int ultimo;
 	
-	public Autos (int tamaño) {
+	public autos (int tamaño) {
 		autos = new Auto[tamaño];
 		cantidad = 0;
 		ultimo = -1;

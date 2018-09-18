@@ -3,9 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.automovil.control.Autos;
-import com.automovil.entity.Auto;
-import com.automovil.view.RegistroAuto;
+import com.automovil.control.autos;
 
 import DetVenta.control.detVentas;
 import DetVenta.entity.detVenta;
@@ -22,11 +20,11 @@ public class detVentaView {
 		private Scanner scanner;
 		private empleados empleados;
 		private ventas ventas;
-		private Autos autos;
+		private autos autos;
 		private Conexión conexión;
 		
 		
-		public detVentaView(detVentas detVentas,empleados empleados,ventas ventas,Autos autos,Conexión conexion,Scanner scanner) {
+		public detVentaView(detVentas detVentas,empleados empleados,ventas ventas,autos autos,Conexión conexion,Scanner scanner) {
 			this.conexión= conexion;
 			this.detVentas = detVentas;
 			this.empleados = empleados;
@@ -35,9 +33,9 @@ public class detVentaView {
 			
 			this.scanner = scanner;
 		}
-		public void addDetVenta() {
+		public void addDetVenta() throws empleadoFantasma, autoFantasma, ventaFantasma {
 			
-			detVenta detVenta= detVentaRegistro.ingresar(scanner);
+			detVenta detVenta= detVentaRegistro.ingresar(scanner, empleados, ventas, autos);
 			String sql = "Insert into detVenta (fechaVentaAño, fechaVentaMes, fechaVentaDia, codigoEmpleado,codigoAutomovil,codigoVenta) " + "values(?,?,?,?,?,?)";
 			try {
 				conexión.consulta(sql);
@@ -73,4 +71,49 @@ public class detVentaView {
 				conexión.getSentencia().setInt(1, codDetVenta);
 				conexión.modificacion();
 			}
+		public void update() throws SQLException, detVentaFantasma{
+			ResultSet resultSet;
+			detVenta detVenta;
+			
+			 int fechaVentaAño;
+			 int fechaVentaMes;
+			 int fechaVentaDia;
+			 int codigoEmpleado;
+			 int codigoAutomovil;
+			 int codigoVenta;
+			int coddetVenta = InputTypes.readInt("Código del detalle de venta: ", scanner);
+			String sql = "select * from detVenta where código = ?";
+			conexión.consulta(sql);
+			conexión.getSentencia().setInt(1, coddetVenta);
+			resultSet = conexión.resultado();
+			if (resultSet.next()) {
+				fechaVentaAño = resultSet.getInt("fechaVentaAño");
+				fechaVentaMes = resultSet.getInt("fechaVentaMes");
+				fechaVentaDia = resultSet.getInt("fechaVentaDia");
+				codigoEmpleado = resultSet.getInt("codigoEmpleado");
+				codigoAutomovil = resultSet.getInt("codigoAutomovil");
+				
+				codigoVenta = resultSet.getInt("codigoVenta");
+				detVenta = new detVenta(coddetVenta, fechaVentaAño, fechaVentaMes, fechaVentaDia, codigoEmpleado,codigoAutomovil,codigoVenta);
+			} else {
+				throw new detVentaFantasma();
+			}
+
+			System.out.println(detVenta);
+			detVentaMenu.menúModificar(scanner, detVenta);
+
+			sql = "update detVenta set fechaVentaAño=?, fechaVentaMes=?, fechaVentaDia=?, codigoEmpleado=?,codigoAutomovil=?,codigoVenta = ? where código = ? ";
+
+			conexión.consulta(sql);
+
+			conexión.getSentencia().setInt(1, detVenta.getFechaVentaAño());
+			conexión.getSentencia().setInt(1, detVenta.getFechaVentaMes());
+			conexión.getSentencia().setInt(1, detVenta.getFechaVentaDia());
+			conexión.getSentencia().setInt(1, detVenta.getCodigoAutomovil());
+			conexión.getSentencia().setInt(1, detVenta.getCodigoEmpleado());
+			conexión.getSentencia().setInt(1, detVenta.getCodigoVenta());
+			conexión.modificacion();
+		}
+
+		
 	}

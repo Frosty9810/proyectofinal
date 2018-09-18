@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.automovil.control.Autos;
+import com.automovil.control.autos;
 import com.detCompra.entity.DetalleDeCompra;
 
 import control.Conexión;
@@ -18,7 +18,7 @@ import com.compra.control.compras;
 public class detCompraView {
 	private Scanner scanner;
 	private compras compras;
-	private Autos autos;
+	private autos autos;
 	
 	private Conexión conexión;
 	

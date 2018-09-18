@@ -1,6 +1,5 @@
 package venta.entity;
 
-import com.automovil.entity.Auto;
 
 public class venta {
 	private int codigoVenta;

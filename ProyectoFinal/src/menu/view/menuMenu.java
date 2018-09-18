@@ -1,10 +1,11 @@
 package menu.view;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.automovil.view.AutoView;
 import com.compra.view.CompraView;
-import com.proveedor.view.proveedorView;
+import com.proveedor.view.ProveedorView;
 
 import DetVenta.view.detVentaView;
 import cliente.view.clienteView;
@@ -40,7 +41,7 @@ public class menuMenu {
 			}
 		}
 	}
-	public static void menu (Scanner scanner, clienteView clienteView,AutoView automovilView,proveedorView proveedorView, CompraView compraView , detVentaView detVentaView, empleadoView empleadoView, ventaView ventaView) {
+	public static void menu (Scanner scanner, clienteView clienteView,AutoView automovilView,ProveedorView proveedorView, CompraView compraView , detVentaView detVentaView, empleadoView empleadoView, ventaView ventaView) {
 		boolean salir = false;
 		while(!salir) {
 			switch(encabezado(scanner)) {
@@ -49,7 +50,12 @@ public class menuMenu {
 				break;
 			case 1:
 				
-				cliente.view.clienteMenu.menu(scanner, clienteView);
+				try {
+					cliente.view.clienteMenu.menu(scanner, clienteView);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				  
 			
 				break;

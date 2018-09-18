@@ -3,8 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.automovil.entity.Auto;
-import com.automovil.view.RegistroAuto;
 
 import cliente.control.clientes;
 import control.Conexión;
@@ -25,9 +23,9 @@ public class ventaView {
 			this.scanner = scanner;
 		}
 		
-		public void addVenta() {
+		public void addVenta() throws clienteFantasma {
 			
-			venta venta = ventaRegistro.ingresar(scanner);
+			venta venta = ventaRegistro.ingresar(scanner, clientes);
 			String sql = "Insert into venta ( int numeroVenta, String reservacion, int codigoCliente) " + "values(?,?,?)";
 			try {
 				conexión.consulta(sql);
@@ -60,4 +58,39 @@ public class ventaView {
 				conexión.getSentencia().setInt(1, codVenta);
 				conexión.modificacion();
 			}
+		public void update() throws SQLException, ventaFantasma{
+			ResultSet resultSet;
+			venta venta;
+			
+			 int codigoCliente;
+			 int numeroVenta;
+			 String reservacion;
+			int codVenta = InputTypes.readInt("Código de la venta: ", scanner);
+			String sql = "select * from venta where código = ?";
+			conexión.consulta(sql);
+			conexión.getSentencia().setInt(1, codVenta);
+			resultSet = conexión.resultado();
+			if (resultSet.next()) {
+				codigoCliente = resultSet.getInt("codigoCliente");
+				numeroVenta = resultSet.getInt("numeroVenta");
+				reservacion = resultSet.getString("reservacion");
+				
+				venta = new venta(codVenta, numeroVenta, reservacion,codigoCliente);
+			} else {
+				throw new ventaFantasma();
+			}
+
+			System.out.println(venta);
+			ventaMenu.menúModificar(scanner, venta);
+
+			sql = "update venta set codigoCliente = ?, numeroVenta = ?, reservacion = ? where código = ? ";
+
+			conexión.consulta(sql);
+			conexión.getSentencia().setInt(1, venta.getNumeroVenta());
+			conexión.getSentencia().setString(2, venta.getReservacion());
+			conexión.getSentencia().setInt(3, venta.getCodigoCliente());
+			conexión.modificacion();
+		}
+
+		
 	}

@@ -3,8 +3,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.automovil.entity.Auto;
-import com.automovil.view.RegistroAuto;
 
 import control.Conexión;
 import empleado.control.empleados;
@@ -55,5 +53,34 @@ public class empleadoView {
 				conexión.getSentencia().setInt(1, codEmpleado);
 				conexión.modificacion();
 			}
+		public void update() throws SQLException, empleadoFantasma{
+			ResultSet resultSet;
+			empleado empleado;
+			String nombreEmpleado;
+			int DNIEmpleado;
+			int codEmpleado = InputTypes.readInt("Código del empleado: ", scanner);
+			String sql = "select * from empleado where código = ?";
+			conexión.consulta(sql);
+			conexión.getSentencia().setInt(1, codEmpleado);
+			resultSet = conexión.resultado();
+			if (resultSet.next()) {
+				
+				nombreEmpleado = resultSet.getString("nombreEmpleado");
+				DNIEmpleado = resultSet.getInt("DNIEmpleado");
+				
+				empleado = new empleado(codEmpleado, nombreEmpleado, DNIEmpleado);
+			} else {
+				throw new empleadoFantasma();
+			}
+
+			System.out.println(empleado);
+			empleadoMenu.menúModificar(scanner, empleado);
+			sql = "update empleado set nombreEmpleado = ?. DNIEmpleado = ? where código = ? ";
+			conexión.consulta(sql);
+			conexión.getSentencia().setString(1, empleado.getNombreEmpleado());
+			conexión.getSentencia().setInt(2, empleado.getDNIEmpleado());
+			conexión.modificacion();
+		}
+
 
 	}

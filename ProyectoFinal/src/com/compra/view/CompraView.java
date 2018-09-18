@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.compra.control.compras;
 import com.compra.entity.Compra;
 
 import control.Conexión;
@@ -14,8 +15,9 @@ import excepcionesInputTypes.compraFantasma;
 public class CompraView {
 	private Scanner scanner;
 	private Conexión conexión;
-	public CompraView(Conexión conexion,Scanner scanner) {
-		
+	private compras compras;
+	public CompraView(compras compras,Conexión conexion,Scanner scanner) {
+		this.compras=compras;
 		this.conexión = conexion;
 		this.scanner = scanner;
 	}

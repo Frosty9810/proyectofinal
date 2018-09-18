@@ -4,24 +4,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.detCompra.entity.DetalleDeCompra;
-import com.detCompra.view.detCompraMenu;
 import com.proveedor.control.ProveedorC;
 import com.proveedor.entity.Proveedor;
 
 import control.Conexión;
 import excepcionesInputTypes.InputTypes;
-import excepcionesInputTypes.autoFantasma;
-import excepcionesInputTypes.detCompraFantasma;
 import excepcionesInputTypes.proveedorFantasma;
 
 
-public class proveedorView {
+public class ProveedorView {
 	private Scanner scanner;
 	private Conexión conexión;
 	
 	
-	public proveedorView(Scanner scanner,Conexión conexion, ProveedorC proveedores) {
+	public ProveedorView(Scanner scanner,Conexión conexion, ProveedorC proveedores) {
 		this.conexión = conexion;
 		
 		this.scanner = scanner;

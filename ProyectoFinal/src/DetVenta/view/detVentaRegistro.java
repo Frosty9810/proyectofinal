@@ -1,7 +1,7 @@
 package DetVenta.view;
  import java.util.Scanner;
 
-import com.automovil.control.Autos;
+import com.automovil.control.autos;
 
 import DetVenta.entity.detVenta;
 import empleado.control.empleados;
@@ -11,7 +11,7 @@ import excepcionesInputTypes.empleadoFantasma;
 import excepcionesInputTypes.ventaFantasma;
 import venta.control.ventas;
 public class detVentaRegistro {
-		public static detVenta ingresar(Scanner scanner, empleados empleados, ventas ventas, Autos autos)throws empleadoFantasma, autoFantasma, ventaFantasma {
+		public static detVenta ingresar(Scanner scanner, empleados empleados, ventas ventas, autos autos)throws empleadoFantasma, autoFantasma, ventaFantasma {
 			
 			int codigoDetVenta= InputTypes.readInt("Codigo Detalle Venta: ", scanner);
 			int fechaVentaDia = InputTypes.readInt("fecha Venta Dia: ", scanner);

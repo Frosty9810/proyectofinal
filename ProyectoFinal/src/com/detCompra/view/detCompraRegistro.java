@@ -9,12 +9,12 @@ import com.detCompra.entity.DetalleDeCompra;
 
 import java.util.Scanner;
 
-import com.automovil.control.Autos;
+import com.automovil.control.autos;
 
 
 
 public class detCompraRegistro{
-	public static DetalleDeCompra ingresar(compras compras, Autos autos, Scanner scanner) throws autoFantasma, compraFantasma {
+	public static DetalleDeCompra ingresar(compras compras, autos autos, Scanner scanner) throws autoFantasma, compraFantasma {
 	
 	int codigoDetCompra=InputTypes.readInt("Codigo detalle de compra", scanner);
 	 int fechaCompra = InputTypes.readInt("fechaCompra", scanner);

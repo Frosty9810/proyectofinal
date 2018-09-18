@@ -1,6 +1,5 @@
 package DetVenta.entity;
 
-import com.automovil.entity.Auto;
 
 public class detVenta {
 	private int codigoDetVenta;

@@ -30,7 +30,7 @@ public class proveedorMenu {
 			}
 		}
 	}
-	public static void menu (Scanner scanner, proveedorView proveedorView) {
+	public static void menu (Scanner scanner, ProveedorView proveedorView) {
 		boolean salir = false;
 		while(!salir) {
 			switch(encabezado(scanner)) {
