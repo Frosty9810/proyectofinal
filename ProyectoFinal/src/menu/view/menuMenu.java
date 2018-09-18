@@ -2,6 +2,10 @@ package menu.view;
 
 import java.util.Scanner;
 
+import com.automovil.view.AutoView;
+import com.compra.view.CompraView;
+import com.proveedor.view.proveedorView;
+
 import DetVenta.view.detVentaView;
 import cliente.view.clienteView;
 import empleado.view.empleadoView;
@@ -36,7 +40,7 @@ public class menuMenu {
 			}
 		}
 	}
-	public static void menu (Scanner scanner, clienteView clienteView,automovilView automovilView,proveedorView proveedorView, compraView compraView , detVentaView detVentaView, empleadoView empleadoView, ventaView ventaView) {
+	public static void menu (Scanner scanner, clienteView clienteView,AutoView automovilView,proveedorView proveedorView, CompraView compraView , detVentaView detVentaView, empleadoView empleadoView, ventaView ventaView) {
 		boolean salir = false;
 		while(!salir) {
 			switch(encabezado(scanner)) {
@@ -50,13 +54,13 @@ public class menuMenu {
 			
 				break;
 			case 2:
-				com.automovil.view.automovil.menu(scanner, automovilView);
+				com.automovil.view.AutoMenu.menu(scanner, automovilView);
 				break;
 			case 3:
-				com.proveedor.view.automovil.menu(scanner, proveedorView);
+				com.proveedor.view.proveedorMenu.menu(scanner, proveedorView);
 				break;
 			case 4:
-				com.compras.view.automovil.menu(scanner, compraView);
+				com.compra.view.compraMenu.menu(scanner, compraView);
 				break;
 			case 5:
 				DetVenta.view.detVentaMenu.menu(scanner, detVentaView);

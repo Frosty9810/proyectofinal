@@ -1,5 +1,7 @@
 package com.proveedor.entity;
 
+import com.automovil.entity.Auto;
+
 public class Proveedor {
 	private int codigoProveedor;
 	private String nombreProveedor;
@@ -8,7 +10,7 @@ public class Proveedor {
 		
 	}
 
-	public int getCodigoProveedor() {
+	public Integer getCodigoProveedor() {
 		return codigoProveedor;
 	}
 
@@ -27,5 +29,19 @@ public class Proveedor {
 	public String toString() {
 		return " Proveedor[codigo del proveedor=" + codigoProveedor + ", Nombre del Proveedor=" + nombreProveedor + "]";
 
+	}
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			Proveedor proveedor = (Proveedor) o;
+			if(this.getCodigoProveedor()==proveedor.getCodigoProveedor()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
+	
+	public int hashCode() {
+		return this.getCodigoProveedor().hashCode();
 	}
 }

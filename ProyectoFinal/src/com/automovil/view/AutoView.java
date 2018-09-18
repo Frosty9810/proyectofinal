@@ -1,55 +1,107 @@
 package com.automovil.view;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
-import com.automovil.control.AutoControl;
+import com.automovil.entity.Auto;
 
-import com.compra.entity.Compra;
-
-import excepciones.entity.CategoriaF;
+import control.Conexión;
+import excepcionesInputTypes.InputTypes;
+import excepcionesInputTypes.autoFantasma;
 
 
 
 public class AutoView {
-	private AutoControl auto;
-	private Compra compra;
 	private Scanner scanner;
-	public AutoView(AutoControl auto, Compra compra, Scanner scanner) {
-		
-		this.auto= auto;
+	private Conexión conexión;
+	public AutoView(Conexión conexion, Scanner scanner) {
+		this.conexión = conexion;
 		this.scanner = scanner;
-		this.compra= compra;
 	}
-	public void addProduct() throws CategoriaF {
-		AutoControl autos;
+	public void addAuto() {
 		
-			autos = RegistroAuto.ingresar(scanner,compra);
+		Auto auto = RegistroAuto.ingresar(scanner);
+		String sql = "Insert into Auto (tipoAuto, marcaAuto, numeroChasis, procedencia, color, precio, garantia) " + "values(?,?,?,?,?,?,?)";
+		try {
+			conexión.consulta(sql);
+			conexión.getSentencia().setString(1, auto.getTipoAuto());
+			conexión.getSentencia().setString(2, auto.getMarcaAuto());
+			conexión.getSentencia().setInt(3, auto.getNumeroChasis());
+			conexión.getSentencia().setString(4, auto.getProcedencia());
+			conexión.getSentencia().setString(5, auto.getColor());
+			conexión.getSentencia().setDouble(6, auto.getPrecio());
+			conexión.getSentencia().setString(7, auto.getGarantia());
+			conexión.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
+		
+}
 	
-		autos.ingresar(autos);
-				
-	}
-	
-	
-	
-	public void listProduct() {
-    	int codigoAutomovil=0;
-    	int indiceCategoria=0;
-    	for(int i = 0; i <= auto.getCantidad(); i++) {
-    		System.out.println(auto.getAutos() [i]);
-    		codigoAutomovil = auto.getAutos()[i].getCodigoAutomovil();
-    		try {
-				indiceCategoria = compra.buscar(codigoAutomovil);
-				System.out.println(compra.getCompra()[indiceCategoria]);
-			} catch (CategoriaF e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void listAuto()throws SQLException  {
+			Auto auto;
+			String sql = "select * from Auto ";
+			conexión.consulta(sql);
+			ResultSet resultSet = conexión.resultado();
+			while (resultSet.next()) {
+				auto = new Auto(resultSet.getInt("codigoAutomovil"), resultSet.getString("tipoAuto"), resultSet.getString("marcaAuto"), resultSet.getInt("tiponumeroChasis"), resultSet.getString("procedencia"), resultSet.getString("color"), resultSet.getDouble("precio"), resultSet.getString("garantia"));
+				System.out.println(auto);
 			}
-    	}
-    	
-    }
-	public void deleteProduct() {
-		int codProducto = InputTypes.readInt("Ingrese el codigo del producto", scanner);
-		auto.eliminar(codigoAutomovil);	
+		}
+	
+	public void deleteAuto() throws SQLException{
+		int codAuto = InputTypes.readInt("Ingrese el codigo del Auto", scanner);
+		
+			String sql = "delete " + "from Auto " + "where código = ?";
+			conexión.consulta(sql);
+			conexión.getSentencia().setInt(1, codAuto);
+			conexión.modificacion();
+		}
+	
+	public void update() throws autoFantasma, SQLException {
+		ResultSet resultSet;
+		Auto auto;
+		String tipoAuto;
+		String marca;
+		int numeroChasis;
+		double precio;
+		String procedencia;
+		String color;
+		String garantia;
+		int codAuto = InputTypes.readInt("Código del auto: ", scanner);
+		String sql = "select * from Auto where código = ?";
+		conexión.consulta(sql);
+		conexión.getSentencia().setInt(1, codAuto);
+		resultSet = conexión.resultado();
+		if (resultSet.next()) {
+			tipoAuto = resultSet.getString("tipoAuto");
+			numeroChasis = resultSet.getInt("numeroChasis");
+			marca= resultSet.getString("marcaAuto");
+			precio = resultSet.getDouble("precio");
+			procedencia= resultSet.getString("procedencia");
+			color= resultSet.getString("color");
+			garantia= resultSet.getString("garantia");
+			
+			auto = new Auto(codAuto, tipoAuto, marca, numeroChasis, procedencia, color, precio, garantia);
+		} else {
+			throw new autoFantasma();
+		}
+
+		System.out.println(auto);
+		AutoMenu.menúModificar(scanner, auto);
+
+		sql = "update auto set tipoAuto = ?, marca = ?, numeroChasis = ?, procedencia = ?, color = ?, precio = ?, garantia = ? where código = ?";
+
+		conexión.consulta(sql);
+		conexión.getSentencia().setString(1, auto.getTipoAuto());
+		conexión.getSentencia().setString(2, auto.getMarcaAuto());
+		conexión.getSentencia().setInt(3, auto.getNumeroChasis());
+		conexión.getSentencia().setString(4, auto.getProcedencia());
+		conexión.getSentencia().setString(5, auto.getColor());
+		conexión.getSentencia().setDouble(6, auto.getPrecio());
+		conexión.getSentencia().setString(7, auto.getGarantia());
+		conexión.modificacion();
 	}
 
 }

@@ -1,5 +1,6 @@
 package cliente.entity;
 
+
 public class Cliente {
 	private int codCliente;
 	private int DNIcliente;
@@ -16,7 +17,7 @@ public class Cliente {
 		this.direccion = direccion;
 		this.telefono = telefono;
 	}
-	public int getCodCliente() {
+	public Integer getCodCliente() {
 		return codCliente;
 	}
 	public void setCodCliente(int codCliente) {
@@ -51,5 +52,22 @@ public class Cliente {
 		return "Cliente [codCliente=" + codCliente + ", DNIcliente=" + DNIcliente + ", nombreCliente=" + nombreCliente
 				+ ", direccion=" + direccion + ", telefono=" + telefono + "]";
 	}
+	
+
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			Cliente cliente = (Cliente) o;
+			if(this.getCodCliente()==cliente.getCodCliente()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
+	
+	public int hashCode() {
+		return this.getCodCliente().hashCode();
+	}
+	
 
 }

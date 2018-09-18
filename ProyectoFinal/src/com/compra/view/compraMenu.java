@@ -1,9 +1,12 @@
 package com.compra.view;
 
+import java.sql.SQLException;
 import java.util.Scanner;
+
+import com.compra.entity.Compra;
+
 import excepcionesInputTypes.InputTypes;
 import excepcionesInputTypes.compraFantasma;
-import excepcionesInputTypes.proveedorFantasma;
 
 
 public class compraMenu {
@@ -26,7 +29,7 @@ public class compraMenu {
 			}
 		}
 	}
-	public static void menu (Scanner scanner, compraView compraView) {
+	public static void menu (Scanner scanner, CompraView compraView) {
 		boolean salir = false;
 		while(!salir) {
 			switch(encabezado(scanner)) {
@@ -41,13 +44,19 @@ public class compraMenu {
 				}
 				break;
 			case 2:
-				compraView.listCompra();
+				try {
+					compraView.listCompra();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 3:
 				try {
 					compraView.deleteCompra();
-				} catch (compraFantasma e) {
-					System.out.println("No existe compra");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				break;
 			}
@@ -55,5 +64,48 @@ public class compraMenu {
 		
 		
 	}
+	
+	private static int encabezadoModificar(Scanner scanner) {
+		int opcion;
+
+
+		
+		while (true) {
+			System.out.println("Ingrese una opcion: ");
+			System.out.println("------------------- ");
+			System.out.println("1. Modificar codigo proveedor");
+			
+			System.out.println("0. Salir");
+			System.out.println();
+
+			opcion = InputTypes.readInt("¿Su opción? ", scanner);
+
+			if (opcion >= 0 && opcion <= 1) {
+				return opcion;
+			}
+		}
+	}
+
+
+	public static void menúModificar(Scanner scanner, Compra compra) {
+		boolean salir = false;
+
+		
+		
+		while (!salir) {
+			switch (encabezadoModificar(scanner)) {
+			case 0:
+				salir = true;
+				break;
+			case 1:
+				
+				compra.setCodigoProveedor(InputTypes.readInt("codigo Proveedor: ", scanner));
+
+				
+				break;			}
+		}
+	}
+
+
 
 }

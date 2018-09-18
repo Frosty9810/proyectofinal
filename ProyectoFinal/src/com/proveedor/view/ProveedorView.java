@@ -1,49 +1,91 @@
 package com.proveedor.view;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Scanner;
 
-
+import com.detCompra.entity.DetalleDeCompra;
+import com.detCompra.view.detCompraMenu;
 import com.proveedor.control.ProveedorC;
 import com.proveedor.entity.Proveedor;
 
-
-
+import control.Conexión;
 import excepcionesInputTypes.InputTypes;
-
+import excepcionesInputTypes.autoFantasma;
+import excepcionesInputTypes.detCompraFantasma;
 import excepcionesInputTypes.proveedorFantasma;
 
+
 public class proveedorView {
-	private ProveedorC proveedores;
 	private Scanner scanner;
+	private Conexión conexión;
 	
-	public proveedorView(Scanner scanner, ProveedorC proveedores) {
-		
-		this.proveedores = proveedores;
+	
+	public proveedorView(Scanner scanner,Conexión conexion, ProveedorC proveedores) {
+		this.conexión = conexion;
 		
 		this.scanner = scanner;
 	}
-	
-	public void addProveedor() {
-		Proveedor proveedor;
+public void addProveedor() {
 		
-		proveedor = proveedorRegistro.ingresar(scanner);
-		proveedores.ingresar(proveedor);
-				
-	}
-	
-	public void listProveedorC() {
-		for(int i=0; i<proveedores.getCantidad(); i++) {
-			System.out.println(proveedores.getProveedor()[i]);
+		Proveedor proveedor = proveedorRegistro.ingresar(scanner);
+		String sql = "Insert into Auto (nombreProveedor) " + "values(?)";
+		try {
+			conexión.consulta(sql);
+			conexión.getSentencia().setString(1, proveedor.getNombreProveedor());
+			conexión.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
 		}
-	}
+		
+}
 	
-	public void deleteProveedorC() throws proveedorFantasma {
-		int codigoProveedor = InputTypes.readInt("Ingrese el codigo del proveedor", scanner);
-		proveedores.eliminar(codigoProveedor);	
+	public void listProveedor()throws SQLException  {
+			Proveedor proveedor;
+			String sql = "select * from Proveedor ";
+			conexión.consulta(sql);
+			ResultSet resultSet = conexión.resultado();
+			while (resultSet.next()) {
+				proveedor = new Proveedor(resultSet.getInt("codigoProveedor"), resultSet.getString("nombreProveedor"));
+				System.out.println(proveedor);
+			}
+		}
+	
+	public void deleteProveedor() throws SQLException{
+		int codProveedor = InputTypes.readInt("Ingrese el codigo del proveedor", scanner);
+		
+			String sql = "delete " + "from Proveedor " + "where código = ?";
+			conexión.consulta(sql);
+			conexión.getSentencia().setInt(1, codProveedor);
+			conexión.modificacion();
+		}
+	
+	public void update() throws SQLException, proveedorFantasma{
+		ResultSet resultSet;
+		Proveedor proveedor;
+		String nombreProveedor;
+		int codProveedor = InputTypes.readInt("Código del proveedor: ", scanner);
+		String sql = "select * from Proveedor where código = ?";
+		conexión.consulta(sql);
+		conexión.getSentencia().setInt(1, codProveedor);
+		resultSet = conexión.resultado();
+		if (resultSet.next()) {
+			nombreProveedor = resultSet.getString("nombreProvedor");
+			proveedor = new Proveedor(codProveedor, nombreProveedor);
+		} else {
+			throw new proveedorFantasma();
+		}
+
+		System.out.println(proveedor);
+		proveedorMenu.menúModificar(scanner, proveedor);
+
+		sql = "update proveedor set nombreProveedor = ? where código = ? ";
+
+		conexión.consulta(sql);
+		conexión.getSentencia().setString(1, proveedor.getNombreProveedor());
+		conexión.modificacion();
 	}
 
-	public ProveedorC getProveedorC() {
-		return proveedores;
+
 	}
-}
 

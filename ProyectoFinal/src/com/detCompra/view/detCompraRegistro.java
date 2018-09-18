@@ -1,27 +1,33 @@
 package com.detCompra.view;
 
-import DetVenta.entity.detVenta;
 import excepcionesInputTypes.InputTypes;
+import excepcionesInputTypes.autoFantasma;
+import excepcionesInputTypes.compraFantasma;
 
-public class detCompraRegistro {
-	int codigoDetVenta= InputTypes.readInt("Codigo Detalle Venta: ", scanner);
-	int fechaVentaDia = InputTypes.readInt("fecha Venta Dia: ", scanner);
-	int fechaVentaMes = InputTypes.readInt("fecha Venta Mes: ", scanner);
-	int fechaVentaAño = InputTypes.readInt("fecha Venta Año: ", scanner);
-	int codigoEmpleado = InputTypes.readInt("Codigo Empleado", scanner);
-	empleados.buscar(codigoEmpleado);
-	
-	
-	int codigoAutomovil = InputTypes.readInt("Codigo Automovil", scanner);
-	autos.buscar(codigoAutomovil);
-	
-	
-	int codigoVenta = InputTypes.readInt("Codigo Venta", scanner);
-	ventas.buscar(codigoVenta);
-	
-	
-	return new detVenta(codigoDetVenta,fechaVentaAño,fechaVentaMes,fechaVentaDia,codigoEmpleado,codigoAutomovil, codigoVenta);
-	
-}
+import com.compra.control.compras;
+import com.detCompra.entity.DetalleDeCompra;
 
-}
+import java.util.Scanner;
+
+import com.automovil.control.Autos;
+
+
+
+public class detCompraRegistro{
+	public static DetalleDeCompra ingresar(compras compras, Autos autos, Scanner scanner) throws autoFantasma, compraFantasma {
+	
+	int codigoDetCompra=InputTypes.readInt("Codigo detalle de compra", scanner);
+	 int fechaCompra = InputTypes.readInt("fechaCompra", scanner);
+	 int descuentos= InputTypes.readInt("descuentos", scanner);
+	 int garantia= InputTypes.readInt("garantia", scanner);
+	
+	 int codigoCompra= InputTypes.readInt("Codigo compra", scanner);
+	 compras.buscar(codigoCompra);
+	 int codigoAtomovil= InputTypes.readInt("Codigo Automovil", scanner);
+	 autos.buscar(codigoAtomovil);
+	
+	
+	return new DetalleDeCompra(codigoDetCompra,fechaCompra,descuentos,garantia,codigoCompra,codigoAtomovil);
+	
+}}
+

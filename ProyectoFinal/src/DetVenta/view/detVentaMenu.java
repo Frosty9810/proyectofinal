@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import excepcionesInputTypes.InputTypes;
 import excepcionesInputTypes.autoFantasma;
-import excepcionesInputTypes.clienteFantasma;
 import excepcionesInputTypes.detVentaFantasma;
 import excepcionesInputTypes.empleadoFantasma;
 import excepcionesInputTypes.ventaFantasma;

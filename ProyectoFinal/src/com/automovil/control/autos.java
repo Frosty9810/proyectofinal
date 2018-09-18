@@ -1,112 +1,54 @@
 package com.automovil.control;
 
-public class autos {
-	private int codigoAutomovil;
-	private String tipoAuto;
-	private String marcaAuto;
-	private int numeroChasis;
-	private String procedencia;
-	private String color;
-	private double precio;
-	private String garantia;
+import com.automovil.entity.Auto;
 
+import excepcionesInputTypes.autoFantasma;
 
-	public autos (int codigoAutomovil, String tipoAuto, String marcaAuto, int numeroChasis, String procedencia, String color, double precio, String garantia) {
-		super();
-		this.codigoAutomovil=codigoAutomovil;
-		this.tipoAuto=tipoAuto;
-		this.marcaAuto=marcaAuto;
-		this.numeroChasis=numeroChasis;
-		this.procedencia=procedencia;
-		this.color=color;
-		this.precio=precio;
-		this.garantia=garantia;
-		
+public class Autos {
+	private Auto[] autos;
+	private int cantidad;
+	private int ultimo;
 	
+	public Autos (int tamaño) {
+		autos = new Auto[tamaño];
+		cantidad = 0;
+		ultimo = -1;
 	}
-
-
-	public int getCodigoAutomovil() {
-		return codigoAutomovil;
+	public void ingresar(Auto auto) throws java.lang.ArrayIndexOutOfBoundsException {
+			autos[++ultimo]=auto;
+			cantidad++;
 	}
-
-
-	public void setCodigoAutomovil(int codigoAutomovil) {
-		this.codigoAutomovil = codigoAutomovil;
+	public void eliminar(int codigoAutomovil) throws autoFantasma {
+		int indice = buscar(codigoAutomovil);
+		if(indice>=0) {
+			if(indice!=ultimo) {
+				for(int i=indice; i<=ultimo;i++) {
+					autos[i]=autos[i+1];
+				}
+			}
+			ultimo--;
+			cantidad--;
+		}
+		
 	}
-
-
-	public String getTipoAuto() {
-		return tipoAuto;
+	public int buscar(int codigoAutomovil) throws autoFantasma {
+		int posicion = -1;
+		
+		for(int indice=0; posicion<=autos.length;posicion++) {
+			if(autos[indice].getCodigoAutomovil()==codigoAutomovil) {
+				posicion=indice;
+				break;
+			}indice++;
+		}
+		if (posicion==-1){
+		throw new autoFantasma();
+		}
+		return posicion;
 	}
-
-
-	public void setTipoAuto(String tipoAuto) {
-		this.tipoAuto = tipoAuto;
+	public Auto[] getAutos() {
+		return autos;
 	}
-
-
-	public String getMarcaAuto() {
-		return marcaAuto;
-	}
-
-
-	public void setMarcaAuto(String marcaAuto) {
-		this.marcaAuto = marcaAuto;
-	}
-
-
-	public int getNumeroChasis() {
-		return numeroChasis;
-	}
-
-
-	public void setNumeroChasis(int numeroChasis) {
-		this.numeroChasis = numeroChasis;
-	}
-
-
-	public String getProcedencia() {
-		return procedencia;
-	}
-
-
-	public void setProcedencia(String procedencia) {
-		this.procedencia = procedencia;
-	}
-
-
-	public String getColor() {
-		return color;
-	}
-
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-
-	public double getPrecio() {
-		return precio;
-	}
-
-
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
-
-
-	public String getGarantia() {
-		return garantia;
-	}
-
-
-	public void setGarantia(String garantia) {
-		this.garantia = garantia;
-	}
-	@Override
-	public String toString() {
-		return "Automovil [codAutomovil=" + codigoAutomovil + ", Tipo de Automovil=" + tipoAuto + ", Marca de Automovil=" + marcaAuto + ", Numero de Chasis="
-				+ numeroChasis + ", Procedencia del Automovil=" + procedencia + ", Color del Automovil=" + color + ", Precio=" + precio + "Garantia del Auto=" + garantia + "]";
+	public int getCantidad() {
+		return cantidad;
 	}
 }

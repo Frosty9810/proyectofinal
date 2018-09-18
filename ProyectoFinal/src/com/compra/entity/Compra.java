@@ -1,5 +1,6 @@
 package com.compra.entity;
 
+
 public class Compra {
 	private int codigoCompra;
 	private int codigoProveedor;
@@ -11,7 +12,7 @@ public class Compra {
 	
 
 	
-	public int getCodigoCompra() {
+	public Integer getCodigoCompra() {
 		return codigoCompra;
 	}
 
@@ -39,6 +40,19 @@ public class Compra {
 	public String toString() {
 		return " Compra[codigo detalle de compra=" + codigoCompra + ", codigoCompra=" + codigoProveedor + "]";
 	}
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			Compra compra = (Compra) o;
+			if(this.getCodigoCompra()==compra.getCodigoCompra()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
 	
+	public int hashCode() {
+		return this.getCodigoCompra().hashCode();
+	}
 
 }

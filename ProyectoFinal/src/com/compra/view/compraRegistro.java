@@ -2,7 +2,6 @@ package com.compra.view;
 
 import java.util.Scanner;
 
-import com.compra.control.compras;
 import com.compra.entity.Compra;
 
 import excepcionesInputTypes.InputTypes;

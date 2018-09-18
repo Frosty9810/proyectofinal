@@ -1,6 +1,7 @@
 package com.automovil.entity;
 
-public class auto {
+
+public class Auto {
 	private int codigoAutomovil;
 	private String tipoAuto;
 	private String marcaAuto;
@@ -11,7 +12,7 @@ public class auto {
 	private String garantia;
 
 
-	public auto (int codigoAutomovil, String tipoAuto, String marcaAuto, int numeroChasis, String procedencia, String color, double precio, String garantia) {
+	public Auto (int codigoAutomovil, String tipoAuto, String marcaAuto, int numeroChasis, String procedencia, String color, double precio, String garantia) {
 		super();
 		this.codigoAutomovil=codigoAutomovil;
 		this.tipoAuto=tipoAuto;
@@ -26,7 +27,7 @@ public class auto {
 	}
 
 
-	public int getCodigoAutomovil() {
+	public Integer getCodigoAutomovil() {
 		return codigoAutomovil;
 	}
 
@@ -108,5 +109,20 @@ public class auto {
 	public String toString() {
 		return "Automovil [codAutomovil=" + codigoAutomovil + ", Tipo de Automovil=" + tipoAuto + ", Marca de Automovil=" + marcaAuto + ", Numero de Chasis="
 				+ numeroChasis + ", Procedencia del Automovil=" + procedencia + ", Color del Automovil=" + color + ", Precio=" + precio + "Garantia del Auto=" + garantia + "]";
+	}
+	
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			Auto auto = (Auto) o;
+			if(this.getCodigoAutomovil()==auto.getCodigoAutomovil()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
+	
+	public int hashCode() {
+		return this.getCodigoAutomovil().hashCode();
 	}
 }

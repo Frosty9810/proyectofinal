@@ -1,5 +1,6 @@
 package com.detCompra.entity;
 
+
 public class DetalleDeCompra {
 	private int codigoDetCompra;
 	private int fechaCompra;
@@ -8,11 +9,20 @@ public class DetalleDeCompra {
 	private int codigoCompra;
 	private int codigoAutomovil;
 	
-	public DetalleDeCompra(int codigoDetCompra, int fechaCompra, int descuetnos, int garantia, int codigoCompra, int codigoAutomovil) {
-		
+	
+
+	public DetalleDeCompra(int codigoDetCompra, int fechaCompra, int descuentos, int garantia, int codigoCompra,
+			int codigoAutomovil) {
+		super();
+		this.codigoDetCompra = codigoDetCompra;
+		this.fechaCompra = fechaCompra;
+		this.descuentos = descuentos;
+		this.garantia = garantia;
+		this.codigoCompra = codigoCompra;
+		this.codigoAutomovil = codigoAutomovil;
 	}
 
-	public int getCodigoDetCompra() {
+	public Integer getCodigoDetCompra() {
 		return codigoDetCompra;
 	}
 
@@ -63,4 +73,19 @@ public class DetalleDeCompra {
 	public String toString() {
 		return "Detalle de Compra [codigo del detalle de compra=" + codigoDetCompra + ", fecha de la compra=" + fechaCompra + ", descuentos=" + descuentos
 				+ ", garantia=" + garantia + ", codigo compra=" + codigoCompra + ", codigo del auto: " + codigoAutomovil +  "]";
+	}
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			DetalleDeCompra detCompra = (DetalleDeCompra) o;
+			if(this.getCodigoDetCompra()==detCompra.getCodigoDetCompra()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
+	
+	public int hashCode() {
+		return this.getCodigoDetCompra().hashCode();
+	}
 }

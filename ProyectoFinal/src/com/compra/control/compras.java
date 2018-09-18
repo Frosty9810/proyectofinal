@@ -3,7 +3,6 @@ package com.compra.control;
 import com.compra.entity.Compra;
 
 import excepcionesInputTypes.compraFantasma;
-import excepcionesInputTypes.ventaFantasma;
 
 
 public class compras {

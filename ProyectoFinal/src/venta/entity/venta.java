@@ -1,5 +1,7 @@
 package venta.entity;
 
+import com.automovil.entity.Auto;
+
 public class venta {
 	private int codigoVenta;
 	private int codigoCliente;
@@ -18,7 +20,7 @@ public class venta {
 	public void setCodigoCliente(int codigoCliente) {
 		this.codigoCliente = codigoCliente;
 	}
-	public int getCodigoVenta() {
+	public Integer getCodigoVenta() {
 		return codigoVenta;
 	}
 	public void setCodigoVenta(int codigoVenta) {
@@ -41,6 +43,19 @@ public class venta {
 		return "venta [codigoVenta=" + codigoVenta + ", codigoCliente=" + codigoCliente + ", numeroVenta=" + numeroVenta
 				+ ", reservacion=" + reservacion + "]";
 	}
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			venta venta = (venta) o;
+			if(this.getCodigoVenta()==venta.getCodigoVenta()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
 	
+	public int hashCode() {
+		return this.getCodigoVenta().hashCode();
+	}
 
 }

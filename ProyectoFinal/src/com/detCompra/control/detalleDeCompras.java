@@ -1,27 +1,25 @@
 package com.detCompra.control;
 
-import com.compra.entity.Compra;
 import com.detCompra.entity.DetalleDeCompra;
 
-import excepcionesInputTypes.compraFantasma;
 import excepcionesInputTypes.detCompraFantasma;
 
 public class detalleDeCompras {
 	
-	private detalleDeCompras[] detalleDeCompra;
+	private DetalleDeCompra[] detalleDeCompra;
 	private int cantidad;
 	private int ultimo;
 	
 	public detalleDeCompras (int tamaño) {
-		detalleDeCompra = new detalleDeCompras[tamaño];
+		detalleDeCompra = new DetalleDeCompra[tamaño];
 		cantidad = 0;
 		ultimo = -1;
 	}
-	public void ingresar(detalleDeCompras detalleDeCompras) throws java.lang.ArrayIndexOutOfBoundsException {
+	public void ingresar(DetalleDeCompra detalleDeCompras) throws java.lang.ArrayIndexOutOfBoundsException {
 		detalleDeCompra[++ultimo]=detalleDeCompras;
 			cantidad++;
 	}
-	public void eliminar(int codigoDetCompra) throws compraFantasma {
+	public void eliminar(int codigoDetCompra) throws detCompraFantasma {
 		int indice = buscar(codigoDetCompra);
 		if(indice>=0) {
 			if(indice!=ultimo) {
@@ -39,7 +37,7 @@ public class detalleDeCompras {
 		
 		int indice=0;
 		while(indice<=ultimo) {
-			if(detalleDeCompra[indice].getDetCompra()==codigoDetCompra) {
+			if(detalleDeCompra[indice].getCodigoDetCompra() ==codigoDetCompra) {
 				posicion=indice;
 				break;
 			}

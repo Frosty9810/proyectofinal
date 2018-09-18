@@ -1,5 +1,7 @@
 package DetVenta.entity;
 
+import com.automovil.entity.Auto;
+
 public class detVenta {
 	private int codigoDetVenta;
 	private int fechaVentaAño;
@@ -11,8 +13,7 @@ public class detVenta {
 	
 	
 	
-	public detVenta(int codigoDetVenta, int fechaVentaAño, int fechaVentaMes, int fechaVentaDia, int codigoEmpleado,
-			int codigoAutomovil,int codigoVenta) {
+	public detVenta(int codigoDetVenta, int fechaVentaAño, int fechaVentaMes, int fechaVentaDia, int codigoEmpleado,int codigoAutomovil,int codigoVenta) {
 		super();
 		this.codigoDetVenta = codigoDetVenta;
 		this.fechaVentaAño = fechaVentaAño;
@@ -47,7 +48,7 @@ public class detVenta {
 		this.codigoAutomovil = codigoAutomovil;
 	}
 
-	public int getCodigoDetVenta() {
+	public Integer getCodigoDetVenta() {
 		return codigoDetVenta;
 	}
 	public void setCodigoDetVenta(int codigoDetVenta) {
@@ -77,7 +78,20 @@ public class detVenta {
 				+ fechaVentaMes + ", fechaVentaDia=" + fechaVentaDia + ", codigoEmpleado=" + codigoEmpleado
 				+ ", codigoAutomovil=" + codigoAutomovil + ", codigoVenta=" + codigoVenta + "]";
 	}
+	public boolean equals(Object o) {
+		boolean respuesta = false;
+		if ( o != null) {
+			detVenta detVenta = (detVenta) o;
+			if(this.getCodigoDetVenta()==detVenta.getCodigoDetVenta()) {
+				respuesta = !respuesta;
+			}
+		}
+		return respuesta;
+	}
 	
+	public int hashCode() {
+		return this.getCodigoDetVenta().hashCode();
+	}
 	
 	
 
