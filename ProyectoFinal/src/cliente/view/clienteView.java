@@ -24,7 +24,7 @@ public class clienteView {
 		public void addCliente() {
 			
 			Cliente cliente = clienteRegistro.ingresar(scanner);
-			String sql = "Insert into Cliente (dNIcliente, nombreCliente, direccion, telefono) " + "values(?,?,?,?)";
+			String sql = "Insert into cliente (codCliente, DNIcliente, nombreCliente, direccion, telefono) " + "values(?,?,?,?,?)";
 			try {
 				conexión.consulta(sql);
 				conexión.getSentencia().setInt(1, cliente.getDNIcliente());
@@ -72,7 +72,7 @@ public class clienteView {
 			int dni;
 			int telefono;
 			int codCliente = InputTypes.readInt("Código del cliente: ", scanner);
-			String sql = "select * from Cliente where código = ?";
+			String sql = "select * from cliente where código = ?";
 			conexión.consulta(sql);
 			conexión.getSentencia().setInt(1, codCliente);
 			resultSet = conexión.resultado();
